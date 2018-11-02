@@ -1,5 +1,7 @@
 #ifndef UNIX
+#ifndef __AVR_ATmega32U4__  // Only if its not an atmega chip
   #include <malloc.h>
+#endif
 #endif
 
 #include "SL_RingBuff.h"
