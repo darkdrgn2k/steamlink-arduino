@@ -53,17 +53,17 @@ void SteamLinkLoRa::init(void *vconf, uint8_t config_length) {
     // TODO: radio params need to be extracted from config structure
     _driver = new LoRaClass();
     _driver->setPins(_cs_pin, _reset_pin, _interrupt_pin);// set CS, reset, IRQ pin
-	  _driver->setFrequency(SL_LORA_DEFAULT_FREQUENCY * 1E6);
+	  //_driver->setFrequency(SL_LORA_DEFAULT_FREQUENCY * 1E6);
+    if (!_driver->begin(SL_LORA_DEFAULT_FREQUENCY * 1E6)) {
+		  FATAL("LoRa driver init failed");
+		  while (true);
+    }
 	  _driver->setSpreadingFactor(7);
 	  _driver->setSignalBandwidth(125E3);
 	  _driver->setPreambleLength(8);
 	  _driver->setCodingRate4(5);
 	  _driver->enableCrc();
 
-    if (!_driver->begin(SL_LORA_DEFAULT_FREQUENCY * 1E6)) {
-		  FATAL("LoRa driver init failed");
-		  while (true); 
-    }
     INFO("LoRa Initialized\n");
   }
 
